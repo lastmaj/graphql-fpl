@@ -1,7 +1,7 @@
 # fpl-graphql
 A GraphQL wrapper for the Fantasy Premier League (Season : 2019-2020) REST API, using node and graphql-yoga.
 
-# FPL Rest API endpoints
+## FPL Rest API endpoints
 - https://fantasy.premierleague.com/api/bootstrap-static/ : events (gameweeks), teams, players, game settings, phases, 
 and elements (players)
 - https://fantasy.premierleague.com/api/fixtures/ : fixtures
@@ -14,7 +14,7 @@ stats, by player, for a given gameweek, and how much points he scored in fantasy
 - [https://fantasy.premierleague.com/api/entry/{entry_id}/event/{event_id}/picks/](https://fantasy.premierleague.com/api/entry/6043795/event/3/picks/) : 
 data of picks of a given fpl team for a given entry (gameweek)
 
-# Usage
+## Usage
 1. Download or clone this repository
 ```
 git clone https://github.com/lastmaj/fpl-graphql.git
@@ -30,9 +30,9 @@ npm start
 
 The server will run at http://localhost:4000 with a graphql playground (browse docs and schema to know more about queries)
 
-## Example
+### Example
 ![2019-09-05 19_46_36-Playground - http___localhost_4000_](https://user-images.githubusercontent.com/16566237/64362042-d3a65380-d01e-11e9-9abe-cddfc84e5469.png)
 Click the buttons on the right (Schema + Docs) to know more about the queries you can do, as well as the different types used. An example query is shown : Aguero's live stats for the 4the gameweek. You didn't captain him did you ? 
 
-# Feel free to fork
+## Feel free to fork :fork_and_knife:
 If it helps you build something awesome, please let me know. 
