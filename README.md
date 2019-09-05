@@ -36,4 +36,4 @@ The server will run at http://localhost:4000 with a graphql playground (browse d
 Aguero's live stats for the 4the gameweek. You didn't captain him did you ? 
 
 ## Feel free to fork :fork_and_knife:
-If it helps you build something awesome, please let me know. 
+If it helps you build something awesome, let me know. 
