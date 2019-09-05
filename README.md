@@ -25,6 +25,7 @@ npm install
 ```
 3. Move to the "src" directory and start the server
 ```
+cd src
 npm start
 ```
 
@@ -32,7 +33,7 @@ The server will run at http://localhost:4000 with a graphql playground (browse d
 
 ### Example
 ![2019-09-05 19_46_36-Playground - http___localhost_4000_](https://user-images.githubusercontent.com/16566237/64362042-d3a65380-d01e-11e9-9abe-cddfc84e5469.png)
-Click the buttons on the right (Schema + Docs) to know more about the queries you can do, as well as the different types used. An example query is shown : Aguero's live stats for the 4the gameweek. You didn't captain him did you ? 
+Aguero's live stats for the 4the gameweek. You didn't captain him did you ? 
 
 ## Feel free to fork :fork_and_knife:
 If it helps you build something awesome, please let me know. 
