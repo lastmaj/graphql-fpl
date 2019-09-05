@@ -23,9 +23,9 @@ git clone https://github.com/lastmaj/fpl-graphql.git
 ```
 npm install
 ```
-3. Move to the "src" directory and start the server
+3. Move to the project directory and start the server
 ```
-cd src
+cd fpl-graphql
 npm start
 ```
 
