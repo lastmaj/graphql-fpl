@@ -1,5 +1,5 @@
 # fpl-graphql
-A GraphQL wrapper for the Fantasy Premier League (Season : 2019-2020) REST API, using node and graphql-yoga. [Demo](http://graphql-fpl.herokuapp.com/)
+A GraphQL wrapper for the Fantasy Premier League (Season : 2019-2020) API, using node and graphql-yoga. [Demo](http://graphql-fpl.herokuapp.com/)
 
 ## FPL Rest API endpoints
 - https://fantasy.premierleague.com/api/bootstrap-static/ : events (gameweeks), teams, players, game settings, phases, 
