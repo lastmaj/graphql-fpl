@@ -37,3 +37,4 @@ Aguero's live stats for the 4the gameweek. You didn't captain him did you ?
 
 ## Feel free to fork :fork_and_knife:
 If it helps you build something awesome, let me know. 
+Contributions are happily welcome.
