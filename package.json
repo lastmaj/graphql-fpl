@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/index.js"
+    "start": "node src/index.js"
   },
   "keywords": [],
   "author": "",
@@ -13,10 +13,11 @@
   "dependencies": {
     "graphql-yoga": "^1.18.2",
     "node-cache": "^4.2.1",
-    "node-fetch": "^2.6.0"
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6"
   },
   "devDependencies": {
-    "nodemon": "^1.19.1"
+    "nodemon": "^2.0.4"
   },
   "engines": {
     "node": "10.15.2"
