@@ -1,29 +1,38 @@
 const NodeCache = require('node-cache');
-const rp = require('request-promise');
+const axios = require('axios');
 
 const cache = new NodeCache({ stdTTL: 3600, checkperiod: 3650 });
 const baseURI = 'https://fantasy.premierleague.com/api';
-const options = {
-  json: true,
-};
 
 //populating cache
 //1.Cache boostrap-static
 
-rp({ ...options, uri: `${baseURI}/bootstrap-static/` }).then((json) => {
+const request = (url) => {
+  return axios.get(url, {
+    headers: {
+      'Content-Type': 'application/json',
+      'User-Agent': 'graphql-fpl'
+    }
+  })
+    .then((response) => {
+      return response.data;
+    })
+}
+
+request(`${baseURI}/bootstrap-static/`).then((json) => {
   cache.set('events', json.events);
   cache.set('teams', json.teams);
   cache.set('players', json.elements);
 });
 
-rp({ ...options, uri: `${baseURI}/fixtures/` }).then((json) =>
+request(`${baseURI}/bootstrap-static/`).then((json) =>
   cache.set('fixtures', json)
 );
 
 const getTeam = (id) => {
   cached = cache.get('teams');
   if (cached == undefined) {
-    return rp({ ...options, uri: `${baseURI}/bootstrap-static/` }).then(
+    return request(`${baseURI}/bootstrap-static/`).then(
       (json) => {
         cache.set('teams', json.teams);
         return json.teams.find((t) => t.id == id);
@@ -41,7 +50,7 @@ const getTeamShortName = async (id) => {
 const getPlayer = (id) => {
   cached = cache.get('players');
   if (cached == undefined) {
-    return rp({ ...options, uri: `${baseURI}/bootstrap-static/` }).then(
+    return request(`${baseURI}/bootstrap-static/`).then(
       (json) => {
         cache.set('players', json.elements);
         return json.elements.find((p) => p.id == id);
@@ -54,7 +63,7 @@ const getPlayer = (id) => {
 const getPlayerByName = (web_name) => {
   cached = cache.get('players');
   if (cached == undefined) {
-    return rp({ ...options, uri: `${baseURI}/bootstrap-static/` }).then(
+    return request(`${baseURI}/bootstrap-static/`).then(
       (json) => {
         cache.set('players', json.elements);
         return json.elements.find((p) => p.web_name === web_name);
@@ -70,7 +79,7 @@ const resolvers = {
       const { id } = args;
       cached = cache.get('events');
       if (cached == undefined) {
-        return rp({ ...options, uri: `${baseURI}/bootstrap-static/` }).then(
+        return request(`${baseURI}/bootstrap-static/`).then(
           (json) => {
             cache.set('events', json.events);
             return json.events.find((g) => g.id == id);
@@ -83,7 +92,7 @@ const resolvers = {
     events: () => {
       cached = cache.get('events');
       if (cached == undefined) {
-        return rp({ ...options, uri: `${baseURI}/bootstrap-static/` }).then(
+        return request(`${baseURI}/bootstrap-static/`).then(
           (json) => {
             cache.set('events', json);
             return json;
@@ -99,7 +108,7 @@ const resolvers = {
       const { id } = args;
       cached = cache.get('fixtures');
       if (cached == undefined) {
-        return rp({ ...options, uri: `${baseURI}/bootstrap-static/` }).then(
+        return request(`${baseURI}/bootstrap-static/`).then(
           (json) => {
             cache.set('fixtures', json);
             return json.find((f) => f.id == id);
@@ -114,37 +123,25 @@ const resolvers = {
 
     entry: async (_, args) => {
       const { id } = args;
-      return await rp({ ...options, uri: `${baseURI}/entry/${id}/` });
+      return await request(`${baseURI}/entry/${id}/`);
     },
 
     entryHistory: async (_, args) => {
-      return await rp({
-        ...options,
-        uri: `${baseURI}/entry/${args.id}/history`,
-      });
+      return await request(`${baseURI}/entry/${args.id}/history`);
     },
 
     live: async (_, args) => {
-      data = await rp({
-        ...options,
-        uri: `${baseURI}/event/${args.event}/live/`,
-      });
+      data = await request(`${baseURI}/event/${args.event}/live/`);
       elements = data.elements;
       return elements.find((el) => el.id == args.id);
     },
 
     picks: async (_, args) => {
-      return await rp({
-        ...options,
-        uri: `${baseURI}/entry/${args.entry}/event/${args.event}/picks/`,
-      });
+      return await request(`${baseURI}/entry/${args.entry}/event/${args.event}/picks/`);
     },
 
     playerSummary: async (_, args) => {
-      return await rp({
-        ...options,
-        uri: `${baseURI}/element-summary/${args.id}/`,
-      });
+      return await request(`${baseURI}/element-summary/${args.id}/`)
     },
   },
 
@@ -153,7 +150,7 @@ const resolvers = {
       const { id } = parent;
       cached = cache.get('players');
       if (cache.get('players') == undefined) {
-        return rp({ ...options, uri: `${baseURI}/bootstrap-static/` }).then(
+        return request(`${baseURI}/bootstrap-static/`).then(
           (json) => {
             cache.set('players', json.elements);
             return json.elements.filter((p) => p.team == id);
@@ -166,7 +163,7 @@ const resolvers = {
       const { id } = parent;
       cached = cache.get('fixtures');
       if (cached == undefined) {
-        return rp({ ...options, uri: `${baseURI}/fixtures/` }).then((json) => {
+        return request(`${baseURI}/fixtures/`).then((json) => {
           cache.set('fixtures', json);
           return json.filter((x) => x.team_a == id || x.team_a == id);
         });
@@ -202,7 +199,7 @@ const resolvers = {
       const { id } = parent;
       const cached = cache.get('fixtures');
       if (cached == undefined) {
-        return rp({ ...options, uri: `${baseURI}/fixtures/` }).then((json) => {
+        return request(`${baseURI}/fixtures/`).then((json) => {
           cache.set('fixtures', json);
           return json.filter((f) => f.event == id);
         });
@@ -218,10 +215,7 @@ const resolvers = {
   EventHistory: {
     event: (parent) => {
       const id = parent.event;
-      return rp({
-        ...options,
-        uri: `${baseURI}/bootstrap-static/`,
-      }).then((json) => json.events.find((g) => g.id == id));
+      return request(`${baseURI}/bootstrap-static/`).then((json) => json.events.find((g) => g.id == id));
     },
   },
 
@@ -233,7 +227,7 @@ const resolvers = {
   Explain: {
     fixture: (parent) => {
       const id = parent.fixture;
-      return rp({ ...options, uri: `${baseURI}/fixtures/` }).then((json) =>
+      return request(`${baseURI}/fixtures/`).then((json) =>
         json.find((f) => f.id == id)
       );
     },

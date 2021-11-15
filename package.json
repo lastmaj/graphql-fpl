@@ -1,6 +1,6 @@
 {
   "name": "fpl",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -11,15 +11,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.24.0",
     "graphql-yoga": "^1.18.2",
-    "node-cache": "^4.2.1",
-    "request": "^2.88.2",
-    "request-promise": "^4.2.6"
+    "node-cache": "^4.2.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
   },
   "engines": {
-    "node": "10.15.2"
+    "node": "14.15.2"
   }
 }
