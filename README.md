@@ -2,9 +2,8 @@
 
 A GraphQL wrapper for the Fantasy Premier League API, using node and graphql-yoga. [Demo](http://graphql-fpl.herokuapp.com/)
 
-# Important notice
-
-~~As of September 2020, fpl-graphql needs update to reflect possible changes in the premier league API. Contributions are welcome. Right now I am a little busy so it would take some time for fpl-graphql to work again.~~ Starting from 20/21 season, request-promise is used. (axios, fetch and other alternatives did not seem to work, which is very odd.)
+### Collaborations
+A special thank you to @tanayv for his collaboration to fix errors related to axios. Collaborations are happily welcomed.
 
 ## FPL Rest API endpoints
 
