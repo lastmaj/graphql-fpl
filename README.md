@@ -1,4 +1,4 @@
-# fpl-graphql
+# graphql-fpl
 
 A GraphQL wrapper for the Fantasy Premier League API, using node and graphql-yoga. [Demo](http://graphql-fpl.herokuapp.com/)
 
